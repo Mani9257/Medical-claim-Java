@@ -28,8 +28,6 @@ public class MedicalClaim {
 	private Integer hospitalId;
 	private String doctor;
 	private Double claimAmount;
-	private String claimStatus;
-	private String dischargeSummaryUrl;
 	private Integer userId;
 	private LocalDate claimRaisedDate;
 

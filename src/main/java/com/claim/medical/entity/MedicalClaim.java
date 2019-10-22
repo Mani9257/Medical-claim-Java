@@ -33,6 +33,8 @@ public class MedicalClaim {
 	private Integer userId;
     @JsonFormat(pattern = "dd-MM-YYYY")
 	private LocalDate claimRaisedDate;
-
+	
+	
+	
 
 }

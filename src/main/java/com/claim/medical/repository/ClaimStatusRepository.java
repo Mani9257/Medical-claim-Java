@@ -10,9 +10,11 @@ import com.claim.medical.entity.ClaimStatus;
 @Repository
 public interface ClaimStatusRepository extends JpaRepository<ClaimStatus, Integer> {
 
-	
 	Optional<ClaimStatus> findByClaimIdAndApproverId(Integer claimId, Integer approverId);
 
 	Optional<ClaimStatus> findByClaimIdAndSeniorApproverId(Integer claimId, Integer approverId);
+
+
+	ClaimStatus findByClaimId(Integer claimId);
 
 }

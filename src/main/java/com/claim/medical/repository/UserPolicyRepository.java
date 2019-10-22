@@ -17,5 +17,6 @@ import com.claim.medical.entity.UserPolicy;
 public interface UserPolicyRepository extends JpaRepository<UserPolicy, Integer> {
 	UserPolicy findByPolicyId(Integer policyId);
 	Optional<UserPolicy> findByUserId(Integer userId);
+	Optional<UserPolicy> findUserPolicyByPolicyId(Integer policyId);
 	
 }

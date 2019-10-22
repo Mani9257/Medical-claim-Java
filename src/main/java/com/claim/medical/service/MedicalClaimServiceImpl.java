@@ -87,7 +87,7 @@ public class MedicalClaimServiceImpl implements MedicalClaimService {
 		} else {
 			List<ClaimStatus> claimStatusList = claimStatusService.getAllBySecondLevelClaimStatus();
 			List<MedicalClaim> mediListFilteredByAmount = medicalClaimList.stream()
-					.filter(m -> userPolicyList.stream().anyMatch(u -> m.getClaimAmount() > (u.getEligibilityAmount())))
+					.filter(m -> userPolicyList.stream().anyMatch(u -> m.getClaimAmount() > u.getEligibilityAmount()))
 					.collect(Collectors.toList());
 			filteredMedicalClaimList = mediListFilteredByAmount.stream()
 					.filter(m -> claimStatusList.stream().anyMatch(d -> m.getClaimId().equals(d.getClaimId())))

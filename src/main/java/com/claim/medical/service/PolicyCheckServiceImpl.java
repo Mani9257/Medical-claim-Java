@@ -100,6 +100,7 @@ public class PolicyCheckServiceImpl implements PolicyCheckService {
 	@Override
 	public ClaimDetailsResponseDto viewClaimStatus(Integer policyId) throws PolicyNotFoundException {
 		
+		
 		MedicalClaim medicalClaim=medicalClaimRepository.findByPolicyId(policyId);
 		Policy policy=policyRepository.findByPolicyId(policyId);
 		

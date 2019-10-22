@@ -1,19 +1,20 @@
 package com.claim.medical.service;
 
-import java.util.Optional;
+import java.util.List;
 
-import com.claim.medical.entity.Policy;
+import com.claim.medical.dto.PolicyResponseDTO;
 import com.claim.medical.exception.MedicalClaimException;
 
 /**
  * this policy Service will return policy based on policyId
  * 
- * @author Abhishek, Shreya E Nair
+ * @author Abhishek
  *
  */
 public interface PolicyService {
-	Optional<Policy> getPolicy(Integer policyId);
-	
+
+	List<PolicyResponseDTO> getAllPolicies();
+
 	String getPolicyNameById(Integer policyId) throws MedicalClaimException;
 
 }

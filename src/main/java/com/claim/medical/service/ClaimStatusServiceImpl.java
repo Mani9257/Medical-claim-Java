@@ -10,6 +10,7 @@ import com.claim.medical.entity.Admin;
 import com.claim.medical.entity.ClaimStatus;
 import com.claim.medical.entity.MedicalClaim;
 import com.claim.medical.exception.MedicalClaimException;
+import com.claim.medical.repository.AdminRepository;
 import com.claim.medical.repository.ClaimStatusRepository;
 import com.claim.medical.util.MedicalClaimConstants;
 
@@ -35,6 +36,8 @@ public class ClaimStatusServiceImpl implements ClaimStatusService {
 
 	@Autowired
 	ClaimStatusRepository claimStatusRepository;
+	@Autowired
+	AdminRepository adminRepository;
 	private static final Logger lOGGER = LoggerFactory.getLogger(ClaimStatusServiceImpl.class);
 	
 
@@ -89,19 +92,25 @@ public class ClaimStatusServiceImpl implements ClaimStatusService {
 	}
 
 	@Override
+	
 	public boolean updateClaimStatusBasedOnApprover(Admin adminDetails, Integer claimId, String approverStatus) {
-		ClaimStatus claimStatus = claimStatusRepository.findByClaimId(claimId);
-		if (adminDetails.getRole().equalsIgnoreCase(MedicalClaimConstants.FIRST_LEVEL_APPROVER)) {
-			claimStatus.setApproverId(adminDetails.getAdminId());
-			claimStatus.setFirstLevelClaimStatus(MedicalClaimConstants.APPROVED);
-			claimStatus.setSecondLevelClaimStatus(MedicalClaimConstants.PENDING);
-		} else if (adminDetails.getRole().equalsIgnoreCase(MedicalClaimConstants.SECOND_LEVEL_APPROVER)) {
-			claimStatus.setSeniorApproverId(adminDetails.getAdminId());
-			claimStatus.setSecondLevelClaimStatus(MedicalClaimConstants.APPROVED);
-
-		}
-		claimStatusRepository.save(claimStatus);
-		lOGGER.info("Medical CLaim updated after approval by ={}",adminDetails.getRole());
+		/*
+		 * ClaimStatus claimStatus = claimStatusRepository.findByClaimId(claimId); if
+		 * (adminDetails.getRole().equalsIgnoreCase(MedicalClaimConstants.
+		 * FIRST_LEVEL_APPROVER)) {
+		 * claimStatus.setApproverId(adminDetails.getAdminId());
+		 * claimStatus.setFirstLevelClaimStatus(MedicalClaimConstants.APPROVED);
+		 * claimStatus.setSecondLevelClaimStatus(MedicalClaimConstants.PENDING); } else
+		 * if (adminDetails.getRole().equalsIgnoreCase(MedicalClaimConstants.
+		 * SECOND_LEVEL_APPROVER)) {
+		 * claimStatus.setSeniorApproverId(adminDetails.getAdminId());
+		 * claimStatus.setSecondLevelClaimStatus(MedicalClaimConstants.APPROVED);
+		 * 
+		 * } claimStatusRepository.save(claimStatus);
+		 * lOGGER.info("Medical CLaim updated after approval by ={}",adminDetails.
+		 * getRole()); return true;
+		 * 
+		 */
 		return true;
 	}
 	

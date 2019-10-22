@@ -5,16 +5,14 @@ package com.claim.medical.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.claim.medical.entity.User;
+import com.claim.medical.entity.ClaimStatus;
 
 
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface ClaimStatusRepository extends JpaRepository<ClaimStatus, Integer> {
 
-	
-
-	User findByUserId(Integer userId);
+	ClaimStatus findByClaimId(Integer claimId);
 	
 	
 	

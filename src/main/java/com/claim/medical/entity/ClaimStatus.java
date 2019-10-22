@@ -1,7 +1,5 @@
 package com.claim.medical.entity;
 
-import java.time.LocalDate;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,23 +11,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="medical_claim")
+@Table(name="claimstatus")
 @Getter
 @Setter
 @NoArgsConstructor
-public class MedicalClaim {
-	
+public class ClaimStatus {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer claimStatusId;
 	private Integer claimId;
-	private Integer policyId;
-	private LocalDate admissionDate;
-	private LocalDate dischargeDate;
-	private Integer hospitalId;
-	private String doctor;
-	private Double claimAmount;
-	private Integer userId;
-	private LocalDate claimRaisedDate;
-
+	private String claimFirstLevelStatus;
+	private String approverId;
+	private String claimSecondLevelStatus;
+	private Integer seniorAppoverId;
 
 }

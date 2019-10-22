@@ -1,7 +1,6 @@
-package com.claim.medical.dto;
+package com.claim.medical.exception;
 
-import java.util.List;
-
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,9 +8,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PolicyResponseDTO {
-
-	private List<PolicyDTO> policyDtos;
+@AllArgsConstructor
+public class ResponseDto {
 	private String message;
 	private Integer statusCode;
+
 }

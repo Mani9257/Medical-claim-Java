@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.claim.medical.dto.ApprovalResponseDTO;
+import com.claim.medical.exception.AdminNotFoundException;
 import com.claim.medical.service.ApprovalService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -35,14 +36,17 @@ public class ApprovalController {
 
 /**
  *This method is use for first level approval of  claim request raised by the patient
- * @param claimId
- * @return
+ * @pathVariable Integer
+ * @pathVariable Integer
+ * @pathVariable String
+ * @return ApprovalResponseDTO
+ * @throws AdminNotFoundException 
  */
 	@GetMapping("/claims/{claimId}/{approverId}/{firstLevelClaimStatus}")
-	public ResponseEntity<ApprovalResponseDTO> firstLevelApproval(@PathVariable Integer claimId,@PathVariable Integer approverId,@PathVariable String firstLevelClaimStatus) {
+	public ResponseEntity<ApprovalResponseDTO> adminApproval(@PathVariable Integer claimId,@PathVariable Integer approverId,@PathVariable String firstLevelClaimStatus) throws AdminNotFoundException {
 		log.info("Inside firstLevelApproval");
 
-		ApprovalResponseDTO approvalResponse = approvalService.firstLevelApproval(claimId,approverId,firstLevelClaimStatus);
+		ApprovalResponseDTO approvalResponse = approvalService.adminApproval(claimId,approverId,firstLevelClaimStatus);
 
 		return new ResponseEntity<>(approvalResponse, HttpStatus.OK);
 

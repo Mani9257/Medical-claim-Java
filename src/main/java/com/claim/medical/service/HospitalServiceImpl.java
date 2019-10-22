@@ -12,12 +12,21 @@ import com.claim.medical.entity.Hospital;
 import com.claim.medical.repository.HospitalRepository;
 import com.claim.medical.util.MedicalClaimConstants;
 
+/**This Service Class is use to show  all the Hospitals and it's details
+ * 
+ * @author Ajith
+ *
+ */
+
 @Service
 public class HospitalServiceImpl implements HospitalService {
 
 	@Autowired
 	HospitalRepository hospitalRepository;
 
+	/**This service is use to get all the available hospitals
+	 * @return List<HospitalResponseDTO>
+	 */
 	public List<HospitalResponseDTO> hospitals() {
 
 		List<HospitalResponseDTO> responsehospitalList = new ArrayList<>();

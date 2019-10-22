@@ -1,6 +1,7 @@
 package com.claim.medical.service;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +13,21 @@ import com.claim.medical.entity.Policy;
 import com.claim.medical.repository.PolicyRepository;
 import com.claim.medical.util.MedicalClaimConstants;
 
+/**This Service class is use to show all the policies and it's details
+ * 
+ * @author Thangavel Ayyanar Ajith
+ *
+ */
+
 @Service
 public class PolicyServiceImpl implements PolicyService {
 
 	@Autowired
 	PolicyRepository policyRepository;
+	
+	/**This service is use to get all the available policies
+	 * @return List<HospitalResponseDTO>
+	 */
 
 	public List<PolicyResponseDTO> getAllPolicies() {
 		List<PolicyResponseDTO> responsePolicies = new ArrayList<>();

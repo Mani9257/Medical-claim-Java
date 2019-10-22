@@ -13,4 +13,6 @@ public interface ClaimStatusRepository extends JpaRepository<ClaimStatus, Intege
 	
 	Optional<ClaimStatus> findByClaimIdAndApproverId(Integer claimId, Integer approverId);
 
+	Optional<ClaimStatus> findByClaimIdAndSeniorApproverId(Integer claimId, Integer approverId);
+
 }

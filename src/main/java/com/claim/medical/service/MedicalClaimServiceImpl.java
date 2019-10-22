@@ -22,13 +22,12 @@ import com.claim.medical.repository.MedicalClaimRepository;
 import com.claim.medical.util.MedicalClaimConstants;
 
 /**
-* This class will has 2 methods which does the following:
-* a)Save medical claims
-* b)fetch medical claims based on the admin role
-* 
-*  @author  Shreya E Nair
-* @since   2019-10-22 
-*/
+ * This class will has 2 methods which does the following: a)Save medical claims
+ * b)fetch medical claims based on the admin role
+ * 
+ * @author Shreya E Nair
+ * @since 2019-10-22
+ */
 @Service
 public class MedicalClaimServiceImpl implements MedicalClaimService {
 
@@ -81,35 +80,16 @@ public class MedicalClaimServiceImpl implements MedicalClaimService {
 		List<MedicalClaim> filteredMedicalClaimList = null;
 		if (adminDetails.getRole().equalsIgnoreCase(MedicalClaimConstants.FIRST_LEVEL_APPROVER)) {
 			List<ClaimStatus> claimStatusList = claimStatusService.getAllByFirstLevelClaimStatus();
-			// the below list will contain all the medical claims that have been pending for
-			// first level check
 			filteredMedicalClaimList = medicalClaimList.stream()
 					.filter(m -> claimStatusList.stream().anyMatch(d -> m.getClaimId().equals(d.getClaimId())))
-					/*
-					 * .filter(m -> claimStatusList.stream().anyMatch( d ->
-					 * d.getFirstLevelClaimStatus().equalsIgnoreCase(MedicalClaimConstants.PENDING))
-					 * )
-					 */
 					.collect(Collectors.toList());
 		} else {
 			List<ClaimStatus> claimStatusList = claimStatusService.getAllBySecondLevelClaimStatus();
-			// the below list will contain all the medical claims that have claim amount
-			// greater than their eligible amount
 			List<MedicalClaim> mediListFilteredByAmount = medicalClaimList.stream()
 					.filter(m -> userPolicyList.stream().anyMatch(u -> m.getClaimAmount() > (u.getEligibilityAmount())))
 					.collect(Collectors.toList());
-			// the below list will contain all the medical claims that have been approved at
-			// first level and pending for second level check
 			filteredMedicalClaimList = mediListFilteredByAmount.stream()
 					.filter(m -> claimStatusList.stream().anyMatch(d -> m.getClaimId().equals(d.getClaimId())))
-					/*
-					 * .filter(m -> claimStatusList.stream().anyMatch( d ->
-					 * d.getFirstLevelClaimStatus().equalsIgnoreCase(MedicalClaimConstants.APPROVED)
-					 * )) .filter(m -> claimStatusList.stream().anyMatch( d ->
-					 * d.getSecondLevelClaimStatus().equalsIgnoreCase(MedicalClaimConstants.PENDING)
-					 * ))
-					 */
-
 					.collect(Collectors.toList());
 		}
 

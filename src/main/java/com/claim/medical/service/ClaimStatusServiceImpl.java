@@ -2,12 +2,10 @@ package com.claim.medical.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.claim.medical.entity.Admin;
 import com.claim.medical.entity.ClaimStatus;
 import com.claim.medical.entity.MedicalClaim;
@@ -21,15 +19,24 @@ import com.claim.medical.util.MedicalClaimConstants;
 * b)fetch medical claims pending for first level approval
 * c)fetch medical claims pending at second level approval
 * 
-*  @author  Shreya E Nair
+*  @author  Shreya E Nair, Abhishek
 * @since   2019-10-22 
 */
+
+/**
+ * this service will return ClaimStatus details and communicate with
+ * ClaimStatusRepository
+ * 
+ * @author Abhishek
+ *
+ */
 @Service
 public class ClaimStatusServiceImpl implements ClaimStatusService {
 
 	@Autowired
 	ClaimStatusRepository claimStatusRepository;
 	private static final Logger lOGGER = LoggerFactory.getLogger(ClaimStatusServiceImpl.class);
+	
 
 	/**
 	 * This method will save the claim status of a medical claim raised.
@@ -96,6 +103,15 @@ public class ClaimStatusServiceImpl implements ClaimStatusService {
 		claimStatusRepository.save(claimStatus);
 		lOGGER.info("Medical CLaim updated after approval by ={}",adminDetails.getRole());
 		return true;
+	}
+	
+	
+	/**
+	 * this method will return all claims
+	 */
+	@Override
+	public List<ClaimStatus> getAllClaims() {
+		return claimStatusRepository.findAll();
 
 	}
 

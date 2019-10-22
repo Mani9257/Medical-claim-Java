@@ -1,10 +1,8 @@
 package com.claim.medical.service;
 
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.claim.medical.entity.Policy;
 import com.claim.medical.exception.MedicalClaimException;
 import com.claim.medical.repository.PolicyRepository;
@@ -15,6 +13,11 @@ import com.claim.medical.util.MedicalClaimConstants;
  * 
  * @author Shreya E Nair
  * @since 2019-10-22
+ * 
+ *        /** this service will query to DB
+ * 
+ * @author Abhishek
+ *
  */
 @Service
 public class PolicyServiceImpl implements PolicyService {
@@ -25,7 +28,7 @@ public class PolicyServiceImpl implements PolicyService {
 	/**
 	 * This method is used to fetch policyd details based on policyId passed
 	 * 
-	 * @param policyId 
+	 * @param policyId
 	 * @return Policy object
 	 * @throws MedicalClaimException
 	 */
@@ -37,6 +40,16 @@ public class PolicyServiceImpl implements PolicyService {
 		} else {
 			throw new MedicalClaimException(MedicalClaimConstants.POLICY_NOT_FOUND);
 		}
+	}
+
+	/**
+	 * this getPolicy will query to DB based on policyId
+	 * 
+	 * @return Optional<Policy>
+	 */
+	@Override
+	public Optional<Policy> getPolicy(Integer policyId) {
+		return policyRepository.findById(policyId);
 	}
 
 }

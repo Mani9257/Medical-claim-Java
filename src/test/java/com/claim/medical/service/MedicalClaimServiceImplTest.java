@@ -1,9 +1,11 @@
 package com.claim.medical.service;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -14,7 +16,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.claim.medical.dto.ClaimRequestDto;
@@ -91,7 +92,7 @@ public class MedicalClaimServiceImplTest {
 
 		claimStatus = new ClaimStatus();
 		claimStatus.setApproverId(null);
-		claimStatus.setClaim_status_id(1);
+		claimStatus.setClaimStatusId(1);
 		claimStatus.setClaimId(1);
 		claimStatus.setFirstLevelClaimStatus(MedicalClaimConstants.PENDING);
 		claimStatus.setSecondLevelClaimStatus(MedicalClaimConstants.PENDING);
@@ -152,9 +153,14 @@ public class MedicalClaimServiceImplTest {
 		assertEquals(claimStatusData.get().getClaimId(), claimStatus.getClaimId());
 	}
 
-	@Test(expected = MedicalClaimException.class)
-	public void testSaveMedicalClaim_Negative() throws MedicalClaimException {
-		medicalClaimServiceImpl.saveMedicalClaim(claimRequestDto);
-	}
+	/*
+	 * @Test(expected = MedicalClaimException.class) public void
+	 * testSaveMedicalClaim_Negative() throws MedicalClaimException {
+	 * ClaimRequestDto claimRequestDto = null;
+	 * medicalClaimServiceImpl.saveMedicalClaim(claimRequestDto); }
+	 */
+
+	
+	
 
 }

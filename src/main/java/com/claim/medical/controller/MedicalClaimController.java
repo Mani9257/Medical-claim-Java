@@ -1,5 +1,6 @@
 package com.claim.medical.controller;
 
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import com.claim.medical.util.MedicalClaimConstants;
  * @author Shreya E Nair
  * @since 2019-10-22
  */
+
 @RestController
 @CrossOrigin(allowedHeaders = { "*", "*/" }, origins = { "*", "*/" })
 @RequestMapping("/api")
@@ -52,4 +54,7 @@ public class MedicalClaimController {
 		}
 		return claimResponseDto;
 	}
+
+
+
 }

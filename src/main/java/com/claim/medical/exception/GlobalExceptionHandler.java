@@ -13,13 +13,29 @@ import com.claim.medical.dto.ResponseDto;
 @ControllerAdvice
 @RestController
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
-
 	@ExceptionHandler(MedicalClaimException.class)
 	public ResponseEntity<ResponseDto> mortgageExceptionHandler(MedicalClaimException ex, WebRequest request) {
 		ResponseDto responseDto = new ResponseDto(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
-
 		return new ResponseEntity<>(responseDto, HttpStatus.UNAUTHORIZED);
+	}
+	@ExceptionHandler(PolicyExpiredException.class)
+	public ErrorResponseDev handleError(PolicyExpiredException ex) {
+		ErrorResponseDev errorResponseDev = new ErrorResponseDev();
+		errorResponseDev.setStatusCode(HttpStatus.OK.value());
+		errorResponseDev.setStatusMessage(ex.getMessage());
+		errorResponseDev.setStatus("Falure");
 
+		return errorResponseDev;
+	}
+
+	@ExceptionHandler(PolicyNotFoundException.class)
+	public ErrorResponseDev handleError(PolicyNotFoundException ex) {
+		ErrorResponseDev errorResponseDev = new ErrorResponseDev();
+		errorResponseDev.setStatusCode(HttpStatus.OK.value());
+		errorResponseDev.setStatusMessage(ex.getMessage());
+		errorResponseDev.setStatus("Failure");
+
+		return errorResponseDev;
 	}
 
 }

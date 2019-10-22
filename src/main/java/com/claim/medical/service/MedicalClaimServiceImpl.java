@@ -5,11 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.claim.medical.dto.ClaimRequestDto;
 import com.claim.medical.dto.MedicalClaimsResponseDto;
 import com.claim.medical.entity.Admin;
@@ -26,7 +24,10 @@ import com.claim.medical.util.MedicalClaimConstants;
  * b)fetch medical claims based on the admin role
  * 
  * @author Shreya E Nair
- * @since 2019-10-22
+ * @since 2019-10-22 /** this service will return all pending medical claims
+ * 
+ * @author Abhishek
+ *
  */
 @Service
 public class MedicalClaimServiceImpl implements MedicalClaimService {
@@ -108,6 +109,16 @@ public class MedicalClaimServiceImpl implements MedicalClaimService {
 		}
 
 		return mediClaimResponseList;
+	}
+
+	/***
+	 * this method will query to DB and
+	 * 
+	 * @return List<MedicalClaim>
+	 */
+	@Override
+	public List<MedicalClaim> getAllPendingMedicalClaims(Integer claimId) {
+		return medicalClaimRepository.findMadicalClaimByClaimId(claimId);
 	}
 
 }

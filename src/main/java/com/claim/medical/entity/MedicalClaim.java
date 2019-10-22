@@ -15,17 +15,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="medical_claim")
+@Table(name = "medical_claim")
 @Getter
 @Setter
 @NoArgsConstructor
 public class MedicalClaim {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer claimId;
 	private Integer policyId;
-	@JsonFormat(pattern = "MM-dd-yyyy")
 	private LocalDate admissionDate;
 	@JsonFormat(pattern = "MM-dd-yyyy")
 	private LocalDate dischargeDate;
@@ -33,8 +32,6 @@ public class MedicalClaim {
 	private String doctor;
 	private Double claimAmount;
 	private Integer userId;
-	@JsonFormat(pattern = "MM-dd-yyyy")
 	private LocalDate claimRaisedDate;
-
 
 }

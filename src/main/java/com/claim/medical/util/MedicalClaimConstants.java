@@ -1,8 +1,19 @@
 package com.claim.medical.util;
 
 
-public class MedicalClaimConstants {
+import org.springframework.stereotype.Component;
 
+@Component
+public class MedicalClaimConstants {
+	private MedicalClaimConstants() {
+		super();
+	}
+
+	public static final Integer SUCCESS_STATUS_CODE = 200;
+	public static final String SUCCESS_STATUS_MESSAGE_POLICY_FETCH = "Successfully fetch policy details";
+	public static final String EXPIRED_STATUS_MESSAGE_POLICY_FETCH = "Policy Expired connect to system admin";
+	public static final String INVALIED_STATUS_MESSAGE_POLICY_FETCH = "Please enter a valid policy";
+	public static final Integer NOT_FOUND = 500;
 	public static final String PENDING = "Pending";
 	public static final String FAILED_TO_SAVE_CLAIM_STATUS = "Failed to save claim status. Please contact system admin";
 	public static final String FAILED_TO_SAVE_MEDICAL_CLAIM = "Failed to save medical claim.Please contact system admin";
@@ -18,5 +29,9 @@ public class MedicalClaimConstants {
 	public static final Object BOOLEAN_TRUE = "true";
 	public static final String UPDATED_CLAIM_STATUS_SUCCESSFULLY = "Claim Status has been updated successfully";
 	public static final String CLAIM_STATUS_UPDATION_FAILED = "Claim Status has been updated successfully";
-
+	public static final String SUCCESS_MESSAGE = "login succeessful";
+	public static final Integer SUCCESS_CODE = 200;
+	public static final String ERROR_MESSAGE = "user name or password is incorrect";
+	public static final Integer ERROR_CODE = 400;
 }
+

@@ -15,5 +15,6 @@ public interface ClaimStatusRepository extends JpaRepository<ClaimStatus, Intege
 	List<ClaimStatus> findAllByFirstLevelClaimStatusAndSecondLevelClaimStatus(String approved, String pending);
 
 	ClaimStatus findByClaimId(Integer claimId);
-
 }
+
+

@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 import com.claim.medical.dto.ClaimRequestDto;
 import com.claim.medical.entity.ClaimStatus;
 import com.claim.medical.entity.MedicalClaim;
@@ -44,7 +45,7 @@ public class MedicalClaimControllerTest {
 
 		claimStatus = new ClaimStatus();
 		claimStatus.setApproverId(null);
-		claimStatus.setClaim_status_id(1);
+		claimStatus.setClaimStatusId(1);
 		claimStatus.setClaimId(1);
 		claimStatus.setFirstLevelClaimStatus(MedicalClaimConstants.PENDING);
 		claimStatus.setSecondLevelClaimStatus(MedicalClaimConstants.PENDING);
@@ -67,4 +68,9 @@ public class MedicalClaimControllerTest {
 		Mockito.when( medicalClaimService.saveMedicalClaim(Mockito.any())).thenReturn(claimStatusRequest);
 		
 	}
-}
+
+
+	
+	
+	}
+	

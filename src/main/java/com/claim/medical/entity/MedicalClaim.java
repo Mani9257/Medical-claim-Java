@@ -32,6 +32,15 @@ public class MedicalClaim {
 	private String dischargeSummaryUrl;
 	private Integer userId;
 	private LocalDate claimRaisedDate;
+	@Override
+	public String toString() {
+		return "MedicalClaim [claimId=" + claimId + ", policyId=" + policyId + ", admissionDate=" + admissionDate
+				+ ", dischargeDate=" + dischargeDate + ", hospitalId=" + hospitalId + ", doctor=" + doctor
+				+ ", claimAmount=" + claimAmount + ", claimStatus=" + claimStatus + ", dischargeSummaryUrl="
+				+ dischargeSummaryUrl + ", userId=" + userId + ", claimRaisedDate=" + claimRaisedDate + "]";
+	}
 
+	
+	
 
 }

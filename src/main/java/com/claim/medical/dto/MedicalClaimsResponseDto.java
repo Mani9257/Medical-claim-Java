@@ -1,40 +1,27 @@
-package com.claim.medical.entity;
+package com.claim.medical.dto;
 
 import java.time.LocalDate;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-@Entity
-@Table(name="medical_claim")
 @Getter
 @Setter
 @NoArgsConstructor
-public class MedicalClaim {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+public class MedicalClaimsResponseDto {
 	private Integer claimId;
-	private Integer policyId;
+	private String policyName;
 	@JsonFormat(pattern = "MM-dd-yyyy")
 	private LocalDate admissionDate;
 	@JsonFormat(pattern = "MM-dd-yyyy")
 	private LocalDate dischargeDate;
-	private Integer hospitalId;
 	private String doctor;
 	private Double claimAmount;
-	private Integer userId;
+	private Double eligibleAmount;
+	private String userName;
 	@JsonFormat(pattern = "MM-dd-yyyy")
 	private LocalDate claimRaisedDate;
-
-
+	private Integer userId;
 }

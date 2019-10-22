@@ -1,12 +1,6 @@
-package com.claim.medical.entity;
+package com.claim.medical.dto;
 
 import java.time.LocalDate;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -14,16 +8,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Table(name="medical_claim")
 @Getter
 @Setter
 @NoArgsConstructor
-public class MedicalClaim {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer claimId;
+public class ClaimRequestDto {
+
 	private Integer policyId;
 	@JsonFormat(pattern = "MM-dd-yyyy")
 	private LocalDate admissionDate;
@@ -33,8 +22,4 @@ public class MedicalClaim {
 	private String doctor;
 	private Double claimAmount;
 	private Integer userId;
-	@JsonFormat(pattern = "MM-dd-yyyy")
-	private LocalDate claimRaisedDate;
-
-
 }

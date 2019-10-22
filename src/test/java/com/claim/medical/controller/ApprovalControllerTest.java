@@ -32,7 +32,7 @@ public class ApprovalControllerTest {
 	public void setUp() {
 
 		claimStatus.setApproverId(1);
-		claimStatus.setClaim_status_id(1);
+		claimStatus.setClaimStatusId(1);
 		claimStatus.setClaimId(1);
 		claimStatus.setFirstLevelClaimStatus("APPROVED");
 		claimStatus.setSeniorApproverId(2);

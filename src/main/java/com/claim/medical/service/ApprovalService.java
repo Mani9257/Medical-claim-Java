@@ -5,7 +5,7 @@ import com.claim.medical.exception.AdminNotFoundException;
 
 public interface ApprovalService {
 
-	ApprovalResponseDTO adminApproval(Integer claimId, Integer approverId, String firstLevelClaimStatus) throws AdminNotFoundException;
+	ApprovalResponseDTO adminApproval(Integer claimId, Integer approverId, String claimStatus) throws AdminNotFoundException;
 
 
 

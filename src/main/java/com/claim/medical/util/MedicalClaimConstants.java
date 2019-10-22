@@ -12,5 +12,5 @@ public class MedicalClaimConstants {
 	
 	public static final String  APPROVED_STATUS_BY_ADMIN="APPROVED";
 	public static final String  REJECTED_STATUS_BY_ADMIN="REJECTED";
-
+	public static final String  PENDING_STATUS_BY_ADMIN="PENDING";
 }

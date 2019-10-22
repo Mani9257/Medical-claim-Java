@@ -50,7 +50,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 	 * @pathVariable String
 	 * @return ApprovalResponseDTO
 	 */
-	public ApprovalResponseDTO adminApproval(Integer claimId, Integer approverId, String firstLevelClaimStatus)
+	public ApprovalResponseDTO adminApproval(Integer claimId, Integer approverId, String claimStatus)
 			throws AdminNotFoundException {
 
 		ApprovalResponseDTO approvalResponseDTO = new ApprovalResponseDTO();
@@ -69,28 +69,27 @@ public class ApprovalServiceImpl implements ApprovalService {
 
 			if (claimRequest.isPresent() && admin.get().getAdminId().equals(claimRequest.get().getApproverId())) {
 
-				if (firstLevelClaimStatus.equalsIgnoreCase(MedicalClaimConstants.APPROVED_STATUS_BY_ADMIN)) {
-					claimRequest.get().setFirstLevelClaimStatus(firstLevelClaimStatus);
+				if (claimStatus.equalsIgnoreCase(MedicalClaimConstants.APPROVED_STATUS_BY_ADMIN)) {
+					claimRequest.get().setFirstLevelClaimStatus(claimStatus);
 					claimStatusRepository.save(claimRequest.get());
 
 				}
 
-				else if (firstLevelClaimStatus.equalsIgnoreCase(MedicalClaimConstants.REJECTED_STATUS_BY_ADMIN)) {
-					claimRequest.get().setFirstLevelClaimStatus(firstLevelClaimStatus);
-					claimRequest.get().setSecondLevelClaimStatus(firstLevelClaimStatus);
+				else if (claimStatus.equalsIgnoreCase(MedicalClaimConstants.REJECTED_STATUS_BY_ADMIN)) {
+					claimRequest.get().setFirstLevelClaimStatus(claimStatus);
+					claimRequest.get().setSecondLevelClaimStatus(MedicalClaimConstants.PENDING_STATUS_BY_ADMIN);
 					claimStatusRepository.save(claimRequest.get());
 
 				}
-				
+
 			}
 
 			else if (seniorApproverrequest.isPresent()
 					&& admin.get().getAdminId().equals(seniorApproverrequest.get().getSeniorApproverId())
 					&& seniorApproverrequest.get().getFirstLevelClaimStatus()
 							.equalsIgnoreCase(MedicalClaimConstants.APPROVED_STATUS_BY_ADMIN)
-					&& userPolicy.isPresent()
-					&& userPolicy.get().getEligibilityAmount() < mediClaim.getClaimAmount()) {
-				seniorApproverrequest.get().setSecondLevelClaimStatus(firstLevelClaimStatus);
+					&& userPolicy.isPresent() && userPolicy.get().getEligibilityAmount() < mediClaim.getClaimAmount()) {
+				seniorApproverrequest.get().setSecondLevelClaimStatus(claimStatus);
 				log.info("senior approver ={}", seniorApproverrequest.get().getSeniorApproverId());
 				claimStatusRepository.save(seniorApproverrequest.get());
 

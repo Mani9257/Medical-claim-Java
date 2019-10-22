@@ -22,6 +22,7 @@ import com.claim.medical.repository.AdminRepository;
 import com.claim.medical.repository.ClaimStatusRepository;
 import com.claim.medical.repository.MedicalCalimRepository;
 import com.claim.medical.repository.UserPolicyRepository;
+import com.claim.medical.util.MedicalClaimConstants;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ApprovalServiceImplTest {
@@ -54,11 +55,11 @@ public class ApprovalServiceImplTest {
 		medicalClaim.setPolicyId(1);
 		medicalClaim.setClaimId(1);
 		medicalClaim.setUserId(1);
-	
+
 		userPolicy.setPolicyId(1);
 		userPolicy.setUserId(1);
 
-		claimStatus.setClaim_status_id(1);
+		claimStatus.setClaimStatusId(1);
 		claimStatus.setClaimId(1);
 
 		approvalResponseDTO.setMessage("SUCCESS");
@@ -72,13 +73,12 @@ public class ApprovalServiceImplTest {
 		admin.setAdminName("Ajith");
 
 		claimStatus.setApproverId(1);
-		claimStatus.setFirstLevelClaimStatus("APPROVED");
+		claimStatus.setFirstLevelClaimStatus(MedicalClaimConstants.APPROVED_STATUS_BY_ADMIN);
 
 		Mockito.when(adminRepository.findByAdminId(Mockito.anyInt())).thenReturn(Optional.of(admin));
 
 		Mockito.when(userPolicyRepository.findByPolicyId(Mockito.anyInt())).thenReturn(Optional.of(userPolicy));
 		Mockito.when(medicalCalimRepository.findByClaimId(Mockito.anyInt())).thenReturn(medicalClaim);
-		
 
 		Mockito.when(claimStatusRepository.findByClaimIdAndApproverId(Mockito.anyInt(), Mockito.anyInt()))
 				.thenReturn(Optional.of(claimStatus));
@@ -87,18 +87,46 @@ public class ApprovalServiceImplTest {
 		Optional<ClaimStatus> response = claimStatusRepository.findByClaimIdAndApproverId(Mockito.anyInt(),
 				Mockito.anyInt());
 		assertEquals(claimStatus.getApproverId(), response.get().getApproverId());
-		
-		ApprovalResponseDTO response2=approvalServiceImpl.adminApproval(1, 1, "APPROVED");
-		assertEquals(approvalResponseDTO.getStatusCode(),response2.getStatusCode());
+
+		ApprovalResponseDTO response2 = approvalServiceImpl.adminApproval(1, 1, "APPROVED");
+		assertEquals(approvalResponseDTO.getStatusCode(), response2.getStatusCode());
+	}
+
+	@Test
+	public void testApprovalNegative() throws AdminNotFoundException {
+		admin.setAdminId(1);
+		admin.setAdminName("Ajith");
+
+		claimStatus.setApproverId(1);
+		claimStatus.setFirstLevelClaimStatus(MedicalClaimConstants.REJECTED_STATUS_BY_ADMIN);
+		claimStatus.setSecondLevelClaimStatus(MedicalClaimConstants.PENDING_STATUS_BY_ADMIN);
+
+		Mockito.when(adminRepository.findByAdminId(Mockito.anyInt())).thenReturn(Optional.of(admin));
+
+		Mockito.when(userPolicyRepository.findByPolicyId(Mockito.anyInt())).thenReturn(Optional.of(userPolicy));
+		Mockito.when(medicalCalimRepository.findByClaimId(Mockito.anyInt())).thenReturn(medicalClaim);
+
+		Mockito.when(claimStatusRepository.findByClaimIdAndApproverId(Mockito.anyInt(), Mockito.anyInt()))
+				.thenReturn(Optional.of(claimStatus));
+		Mockito.when(claimStatusRepository.findByClaimIdAndSeniorApproverId(Mockito.anyInt(), Mockito.anyInt()))
+				.thenReturn(Optional.empty());
+		Optional<ClaimStatus> response = claimStatusRepository.findByClaimIdAndApproverId(Mockito.anyInt(),
+				Mockito.anyInt());
+		assertEquals(claimStatus.getApproverId(), response.get().getApproverId());
+
+		ApprovalResponseDTO response2 = approvalServiceImpl.adminApproval(1, 1, "REJECTED");
+		assertEquals(approvalResponseDTO.getStatusCode(), response2.getStatusCode());
 	}
 
 	@Test
 	public void testApprovals() throws AdminNotFoundException {
-		admin.setAdminId(1);
+		admin.setAdminId(2);
 		admin.setAdminName("Ajith");
-
+		claimStatus.setFirstLevelClaimStatus(MedicalClaimConstants.APPROVED_STATUS_BY_ADMIN);
 		claimStatus.setSeniorApproverId(2);
-		claimStatus.setSecondLevelClaimStatus("APPROVED");
+		claimStatus.setSecondLevelClaimStatus(MedicalClaimConstants.APPROVED_STATUS_BY_ADMIN);
+		userPolicy.setEligibilityAmount(10000.0);
+		medicalClaim.setClaimAmount(150000.0);
 
 		Mockito.when(adminRepository.findByAdminId(Mockito.anyInt())).thenReturn(Optional.of(admin));
 		Mockito.when(userPolicyRepository.findByPolicyId(Mockito.anyInt())).thenReturn(Optional.of(userPolicy));
@@ -111,28 +139,22 @@ public class ApprovalServiceImplTest {
 		Optional<ClaimStatus> response = claimStatusRepository.findByClaimIdAndSeniorApproverId(Mockito.anyInt(),
 				Mockito.anyInt());
 		assertEquals(claimStatus.getApproverId(), response.get().getApproverId());
-		ApprovalResponseDTO response2=approvalServiceImpl.adminApproval(1, 2, "APPROVED");
-		assertEquals(approvalResponseDTO.getStatusCode(),response2.getStatusCode());
+		ApprovalResponseDTO response2 = approvalServiceImpl.adminApproval(1, 2,
+				MedicalClaimConstants.APPROVED_STATUS_BY_ADMIN);
+		assertEquals(approvalResponseDTO.getStatusCode(), response2.getStatusCode());
 	}
 
-	@Test
-	public void testApprovalInvalid() throws AdminNotFoundException {
-	
+	@Test(expected = AdminNotFoundException.class)
+	public void testApprovalInvalid() throws AdminNotFoundException  {
+		claimStatus.setFirstLevelClaimStatus(MedicalClaimConstants.APPROVED_STATUS_BY_ADMIN);
 
-		Mockito.when(adminRepository.findByAdminId(Mockito.anyInt())).thenReturn(Optional.empty());
-		Mockito.when(userPolicyRepository.findByPolicyId(Mockito.anyInt())).thenReturn(Optional.of(userPolicy));
+		Mockito.when(adminRepository.findByAdminId(0)).thenReturn(Optional.empty());
 		Mockito.when(medicalCalimRepository.findByClaimId(Mockito.anyInt())).thenReturn(medicalClaim);
+		Mockito.when(claimStatusRepository.findByClaimIdAndApproverId(0, 0)).thenReturn((Optional.empty()));
+	
+		ApprovalResponseDTO responseDTO = approvalServiceImpl.adminApproval(0, 0, MedicalClaimConstants.APPROVED_STATUS_BY_ADMIN);
+		assertEquals("FAILED", responseDTO.getMessage());
 
-		Mockito.when(claimStatusRepository.findByClaimIdAndApproverId(Mockito.anyInt(), Mockito.anyInt()))
-				.thenReturn((Optional.empty()));
-		Mockito.when(claimStatusRepository.findByClaimIdAndSeniorApproverId(Mockito.anyInt(), Mockito.anyInt()))
-				.thenReturn(Optional.of(claimStatus));
-		MedicalClaim response = medicalCalimRepository.findByClaimId(Mockito.anyInt());
-		assertEquals(medicalClaim.getClaimId(), response.getClaimId());
-		
-		
-
-		
 	}
 
 }

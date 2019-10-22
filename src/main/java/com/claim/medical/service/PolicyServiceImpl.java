@@ -33,12 +33,13 @@ public class PolicyServiceImpl implements PolicyService {
 		List<PolicyResponseDTO> responsePolicies = new ArrayList<>();
 		PolicyResponseDTO policyResponseDTO = new PolicyResponseDTO();
 		List<PolicyDTO> policyResponse = new ArrayList<>();
-		PolicyDTO eachPolicy = new PolicyDTO();
+		
 
 		List<Policy> policies = policyRepository.findAll();
 		if (!policies.isEmpty()) {
 			policies.stream().forEach(policy -> {
-
+			
+				PolicyDTO eachPolicy = new PolicyDTO();
 				eachPolicy.setPolicyId(policy.getPolicyId());
 				eachPolicy.setPolicyType(policy.getPolicyType());
 				policyResponse.add(eachPolicy);

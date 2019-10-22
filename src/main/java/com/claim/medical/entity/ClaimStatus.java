@@ -18,7 +18,7 @@ public class ClaimStatus {
 
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
-private Integer claim_status_id;
+private Integer claimStatusId;
 private Integer claimId;
 private String firstLevelClaimStatus;
 private String secondLevelClaimStatus;

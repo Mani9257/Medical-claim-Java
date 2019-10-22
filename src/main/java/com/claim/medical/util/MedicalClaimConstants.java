@@ -33,5 +33,7 @@ public class MedicalClaimConstants {
 	public static final Integer SUCCESS_CODE = 200;
 	public static final String ERROR_MESSAGE = "user name or password is incorrect";
 	public static final Integer ERROR_CODE = 400;
+	public static final String FAILURE_STATUS = "Failure";
+	public static final String SUCCESS_STATUS = "Success";
 }
 

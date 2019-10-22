@@ -6,11 +6,20 @@ public class LoginResponseDto {
 	private Integer adminId;
 	private String message;
 	private Integer statusCode;
-	
+	private String statusMsg;
+
+	public String getStatusMsg() {
+		return statusMsg;
+	}
+
+	public void setStatusMsg(String statusMsg) {
+		this.statusMsg = statusMsg;
+	}
+
 	@Override
 	public String toString() {
 		return "LoginResponseDto [adminName=" + adminName + ", adminId=" + adminId + ", message=" + message
-				+ ", statusCode=" + statusCode + "]";
+				+ ", statusCode=" + statusCode + ", statusMsg=" + statusMsg + "]";
 	}
 
 	public String getAdminName() {
@@ -44,7 +53,5 @@ public class LoginResponseDto {
 	public void setStatusCode(Integer statusCode) {
 		this.statusCode = statusCode;
 	}
-	
-	
-	
+
 }

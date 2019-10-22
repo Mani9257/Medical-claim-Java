@@ -33,11 +33,11 @@ public class MedicalClaimServiceImplTest {
 	MedicalClaimRepository medicalClaimRepository;
 	@Mock
 	PolicyService policyService;
-	@Autowired
+	@Mock
 	UserPolicyService userPolicyService;
-	@Autowired
+	@Mock
 	UserService userService;
-	@Autowired
+	@Mock
 	MedicalClaimService medicalClaimService;
 	@Mock
 	MedicalClaimRepository claimRepository;
@@ -64,7 +64,7 @@ public class MedicalClaimServiceImplTest {
 	@Before
 	public void setUp() {
 		firstMedicalClaim = new MedicalClaim();
-		firstMedicalClaim.setAdmissionDate(LocalDate.of(10, 01, 2019));
+		firstMedicalClaim.setAdmissionDate(LocalDate.of(2019, 10, 01));
 		firstMedicalClaim.setClaimAmount(20000.0);
 		firstMedicalClaim.setClaimId(1);
 		firstMedicalClaim.setClaimRaisedDate(LocalDate.of(2019, 10, 21));
@@ -75,7 +75,7 @@ public class MedicalClaimServiceImplTest {
 		firstMedicalClaim.setUserId(1);
 
 		secondMedicalClaim = new MedicalClaim();
-		secondMedicalClaim.setAdmissionDate(LocalDate.of(10, 01, 2019));
+		secondMedicalClaim.setAdmissionDate(LocalDate.of(2019, 10,01));
 		secondMedicalClaim.setClaimAmount(20000.0);
 		secondMedicalClaim.setClaimId(1);
 		secondMedicalClaim.setClaimRaisedDate(LocalDate.of(2019, 10, 21));

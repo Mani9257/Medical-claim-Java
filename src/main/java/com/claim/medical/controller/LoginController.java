@@ -1,6 +1,7 @@
 package com.claim.medical.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import static com.claim.medical.util.MedicalClaimConstants.SUCCESS_CODE;
 import static com.claim.medical.util.MedicalClaimConstants.SUCCESS_MESSAGE;
 import static com.claim.medical.util.MedicalClaimConstants.ERROR_CODE;

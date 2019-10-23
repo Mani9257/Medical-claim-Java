@@ -15,16 +15,15 @@ import com.claim.medical.service.ApprovalService;
 
 import lombok.extern.slf4j.Slf4j;
 
+
 /**
+
  * This Controller is used to approve or reject the claim request raised by patients
  * 
  * @author Ajith
  *
  */
-/**
- * @param claimId
- * @return
- */
+
 @RestController
 @CrossOrigin(allowedHeaders = { "*", "*/" }, origins = { "*", "*/" })
 @RequestMapping("/api")

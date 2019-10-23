@@ -64,20 +64,28 @@ public class ApprovalServiceImpl implements ApprovalService {
 		Optional<ClaimStatus> seniorApproverrequest = claimStatusRepository.findByClaimIdAndSeniorApproverId(claimId,
 				approverId);
 
+		
 		if (admin.isPresent()) {
 			log.info("Admin ={}", admin.get().getAdminName());
 
-			if (claimRequest.isPresent() && admin.get().getAdminId().equals(claimRequest.get().getApproverId())) {
+			if (claimRequest.isPresent() && admin.get().getAdminId().equals(claimRequest.get().getApproverId()) && userPolicy.isPresent()  ) {
 
-				if (claimStatus.equalsIgnoreCase(MedicalClaimConstants.APPROVED_STATUS_BY_ADMIN)) {
+				if (claimStatus.equalsIgnoreCase(MedicalClaimConstants.APPROVED_STATUS_BY_ADMIN) && userPolicy.get().getEligibilityAmount() > mediClaim.getClaimAmount() ) {
 					claimRequest.get().setFirstLevelClaimStatus(claimStatus);
+					claimRequest.get().setSecondLevelClaimStatus(MedicalClaimConstants.NOTAPPLICABLE_STATUS_BY_ADMIN);
+					claimStatusRepository.save(claimRequest.get());
+
+				}
+				else if(claimStatus.equalsIgnoreCase(MedicalClaimConstants.APPROVED_STATUS_BY_ADMIN) && userPolicy.get().getEligibilityAmount() < mediClaim.getClaimAmount()) {
+					claimRequest.get().setFirstLevelClaimStatus(claimStatus);
+					claimRequest.get().setSecondLevelClaimStatus(MedicalClaimConstants.PENDING_STATUS_BY_ADMIN);
 					claimStatusRepository.save(claimRequest.get());
 
 				}
 
 				else if (claimStatus.equalsIgnoreCase(MedicalClaimConstants.REJECTED_STATUS_BY_ADMIN)) {
 					claimRequest.get().setFirstLevelClaimStatus(claimStatus);
-					claimRequest.get().setSecondLevelClaimStatus(MedicalClaimConstants.PENDING_STATUS_BY_ADMIN);
+					claimRequest.get().setSecondLevelClaimStatus(claimStatus);
 					claimStatusRepository.save(claimRequest.get());
 
 				}
